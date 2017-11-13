@@ -1,12 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import UserSuggestions   from './components/user_suggestions';
 
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <div>
-        Hallo!!
+        <Switch>
+          <Redirect exact={true} from='/' to='/fb'/>
+          <Route path="/fb" component={UserSuggestions}/>
+        </Switch>
       </div>
     </BrowserRouter>
   );

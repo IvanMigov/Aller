@@ -1,15 +1,12 @@
 const Article = require('../models/article');
 const cheerio = require('cheerio');
 const request = require("request");
-const uri = 'http://www.dagbladet.no/kjendis/supermodellen-ble-beskyldt-for-a-ikke-tipse-etter-et-barbesok-na-svarer-hun-pa-kritikken/68573788 0';
 module.exports = {
 
   parse(req, res, next) {
     console.log('parse body');
     const articleProps = req.body;
-    request({
-      uri,
-    }, function(error, response, body) {
+    request({uri:articleProps.uri }, function(error, response, body) {
       const $ = cheerio.load(body);
       const title = $("title").text();
       let paragraphs = [];

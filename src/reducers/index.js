@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import paragraphs from './paragraphs';
 
 export default combineReducers({
-  form: formReducer
+  paragraphs: paragraphs
 });

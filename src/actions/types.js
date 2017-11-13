@@ -1,0 +1,1 @@
+export const FETCH_PARAGRAPHS = 'fetch_paragraphs';

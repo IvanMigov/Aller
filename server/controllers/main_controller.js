@@ -5,6 +5,7 @@ const uri = 'http://www.dagbladet.no/kjendis/supermodellen-ble-beskyldt-for-a-ik
 module.exports = {
 
   parse(req, res, next) {
+    console.log('parse body');
     const articleProps = req.body;
     request({
       uri,

@@ -2,6 +2,7 @@
   "name": "aller",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.18.2",
@@ -9,29 +10,31 @@
     "express": "^4.16.2",
     "mongoose": "^4.13.2",
     "react": "^15.6.1",
+    "lodash": "^4.17.2",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.12",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-form": "^7.0.4"
   },
   "scripts": {
     "serv": "node server/index.js",
-    "start": "react-scripts start",
-    "watch-less": "grunt watch",
-    "dev": "concurrently --kill-others \"json-server --watch db.json --port 3004\" \"npm run watch-less\" \"npm run start\"",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "compile-less": "grunt compile-less"
+    "serve": "webpack-dev-server",
+    "dev": "concurrently --kill-others  \"npm run watch-less\" \"npm run start\""
   },
   "devDependencies": {
-    "bootstrap": "^3.3.7",
-    "concurrently": "^3.5.0",
-    "grunt": "^1.0.1",
-    "grunt-contrib-less": "^1.4.1",
-    "grunt-contrib-watch": "^1.0.0",
-    "less-plugin-autoprefix": "^1.5.1",
-    "less-plugin-clean-css": "^1.5.1"
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.0",
+    "babel-preset-env": "^1.1.4",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "html-webpack-plugin": "^2.24.1",
+    "rimraf": "^2.5.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.0-rc.0",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-dev-server": "^2.2.0-rc.0"
   }
 }

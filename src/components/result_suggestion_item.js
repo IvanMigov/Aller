@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 class ResultSuggestionItem extends Component {
   approveSuggestion(){
-    this.props.approveSuggestion(this.props.item)
+    const{articleId,item,showApproved} = this.props;
+    this.props.approveSuggestion({showApproved,articleId, suggestion: item})
   }
   render() {
     const {suggestText} = this.props.item;

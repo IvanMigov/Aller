@@ -26,6 +26,10 @@ export function fetchArticles(showApproved) {
 }
 export function saveSuggestion(suggestion) {
   console.log(suggestion);
+  if(!suggestion.uri){
+    suggestion.uri = 'http://www.dagbladet.no/kjendis/supermodellen-ble-beskyldt-for-a-ikke-tipse-etter-et-barbesok-na-svarer-hun-pa-kritikken/68573788';
+    console.warn('Please specify articleURL in URL')
+  }
   const request = axios.put(`${requestUrl}/suggestion`,suggestion);
 
   return {
@@ -35,10 +39,10 @@ export function saveSuggestion(suggestion) {
 }
 export function approveSuggestion(suggestion) {
   console.log(suggestion);
-  // const request = axios.put(`${requestUrl}/suggestion`,suggestion);
+  const request = axios.patch(`${requestUrl}/approve`,suggestion);
 
   return {
-    type: DO_NOT_CHANGE_STATE,
-    payload: null
+    type: FETCH_ARTICLES,
+    payload: request
   };
 }

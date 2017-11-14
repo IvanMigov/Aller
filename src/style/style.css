@@ -64,9 +64,14 @@ body{
     width: calc(100% - 100px);
     border: 1px solid #c3ced9;
     outline: none;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .all-suggestion-item.all-input-suggestion{
     border-bottom: none;
+}
+.all-input-suggestion button{
+    margin-bottom: 0;
 }
 
 /*=====================================Paragraphs======================================*/

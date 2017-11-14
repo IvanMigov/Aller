@@ -9,18 +9,24 @@ let showApproved = '';
 
 
 class Results extends Component {
+  constructor() {
+    super();
+    this.state = {showApproved: false}
+  }
   componentWillMount() {
     console.log('componentWillMount');
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     showApproved = params.get('showApproved');
+    this.setState({showApproved});
     this.props.fetchArticles(showApproved);
   }
   getItem(item, index){
     return (
       <ResultItem
-        key= {index}
+        key= {item._id}
         item = {item}
+        showApproved = {this.state.showApproved}
       />
     )
   }

@@ -8,21 +8,25 @@ import {connect} from 'react-redux';
 class ResultItem extends Component {
   constructor() {
     super();
-    this.state = {
-      suggestion: ''
-    }
+    this.state = {suggestion: ''}
   }
   getResultSuggestion(item, index){
     return (
       <ResultSuggestionItem
         key= {item._id}
         item = {item}
-        approveAction = {this.props.approveSuggestion}
+        articleId = {this.props.item._id}
+        approveSuggestion = {this.props.approveSuggestion}
+        showApproved = {this.props.showApproved}
       />
     )
   }
   approveSuggestion(){
-    this.props.approveSuggestion({suggestText:this.state.suggestion})
+    if(this.state.suggestion){
+      const showApproved = this.props.showApproved;
+      const articleId = this.props.item._id;
+      this.props.approveSuggestion({showApproved,articleId, suggestion: {suggestText:this.state.suggestion}})
+    }
   }
   changeSuggestion(evt) {
     this.setState({suggestion: evt.target.value});

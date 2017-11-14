@@ -66,5 +66,45 @@ module.exports = {
       })
       .catch(next)
 
+  },
+  approve(req, res, next) {
+    console.log('approve');
+    const {articleId, suggestion} = req.body;
+    const showApproved = !!req.body.showApproved;
+    Article.findByIdAndUpdate({ _id: articleId }, {approved:true})
+      .then((article)=>{
+      if(suggestion._id){
+        Suggestion.findByIdAndUpdate({_id: suggestion._id}, {approved: true})
+          .then(() => {
+            Article.find({approved:showApproved})
+              .populate('suggestions')
+              .then((articles) => {
+                res.status(200).send({articles});
+
+              })
+              .catch(next)
+          })
+          .catch(next);
+      }else{
+        const newSuggestion = new Suggestion({ suggestText: suggestion.suggestText, approved: true });
+        article.suggestions.push(newSuggestion);
+
+        Promise.all([article.save(), newSuggestion.save()])
+          .then((args) => {
+            Article.find({approved:showApproved})
+              .populate('suggestions')
+              .then((articles) => {
+                res.status(200).send({articles});
+
+              })
+              .catch(next)
+          })
+          .catch(next);
+      }
+
+      })
+      .catch(next);
+
+
   }
 };

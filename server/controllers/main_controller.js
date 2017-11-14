@@ -1,4 +1,6 @@
 const Article = require('../models/article');
+const Suggestion = require('../models/suggestion');
+
 const cheerio = require('cheerio');
 const request = require("request");
 module.exports = {
@@ -18,26 +20,24 @@ module.exports = {
       res.send({title,paragraphs});
     });
 
-    // Article.create(articleProps)
-    //   .then(article => res.send(article))
-    //   .catch(next)
-  }
+  },
+  create(req, res, next) {
+    console.log('create');
+    const articleProps = req.body;
+    const suggestion = new Suggestion({ suggestText: articleProps.suggestText, approved: false });
 
-  // edit(req, res, next) {
-  //   const driverId = req.params.id;
-  //   const driverProps = req.body;
-  //
-  //   Driver.findByIdAndUpdate({ _id: driverId }, driverProps)
-  //     .then(() => Driver.findById({ _id: id }))
-  //     .then(driver => res.send(driver))
-  //     .catch(next);
-  // },
-  //
-  // delete(req, res, next) {
-  //   const driverId = req.params.id;
-  //
-  //   Driver.findByIdAndRemove({ _id: driverId })
-  //     .then(driver => res.status(204).send(driver))
-  //     .catch(next);
-  // }
+    Article.findOne({ url: articleProps.uri,originalText: articleProps.originalText})
+      .then((article)=>{
+        if (!article) {
+          article = new Article({ url: articleProps.uri,originalText: articleProps.originalText});
+        }
+        article.suggestions.push(suggestion);
+
+        Promise.all([article.save(), suggestion.save()])
+          .then((args) => res.status(201).send({article:args[0]}))
+          .catch(next);
+      })
+      .catch(next)
+
+  }
 };

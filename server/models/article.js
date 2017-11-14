@@ -11,6 +11,10 @@ const ArticleSchema = new Schema({
     type: String,
     required: [true, 'Original Text is required.']
   },
+  approved: {
+    type: Boolean,
+    default: false
+  },
   suggestions:[{
     type: Schema.Types.ObjectId,
     ref: 'userSuggestion'

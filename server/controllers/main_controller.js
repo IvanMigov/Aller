@@ -53,5 +53,18 @@ module.exports = {
       })
       .catch(next)
 
+  },
+  index(req, res, next) {
+    console.log('index');
+    const approved = req.headers.showapproved === 'true' ? true : false;
+
+    Article.find({approved})
+      .populate('suggestions')
+      .then((articles)=>{
+        res.status(200).send({articles});
+
+      })
+      .catch(next)
+
   }
 };

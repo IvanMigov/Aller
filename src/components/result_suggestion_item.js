@@ -6,9 +6,9 @@ class ResultSuggestionItem extends Component {
     this.props.approveSuggestion({showApproved,articleId, suggestion: item})
   }
   render() {
-    const {suggestText} = this.props.item;
+    const {suggestText,approved} = this.props.item;
     return (
-      <div className="all-suggestion-item">
+      <div className={approved ? "all-suggestion-item all-approved" : "all-suggestion-item"}>
 
         <p className="all-item-suggestion">
           {suggestText}

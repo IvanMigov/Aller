@@ -6,9 +6,10 @@ body{  font-family: "Roboto","Helvetica",Helvetica,Arial,sans-serif;  }
 .all-result-item-title{  color: blue;  font-size: 16px;  display: block;  margin-bottom: 4px;  }
 .all-btn-delete{  position: absolute;  top: 5px;  right: 5px;  text-transform: uppercase;  color: #fff;  background-color: #d9165a;  border: none;  padding: 5px 10px;  cursor: pointer;  }
 .all-original-title{  margin-bottom: 4px;  }
-.all-result-item-wrapper p{  font-size: 13px;  }
+.all-result-item-wrapper p{  font-size: 13px; line-height: 25px }
 .all-result-item-original{  margin-bottom: 10px;  }
 .all-suggestion-item{  display: flex;  justify-content: space-between;  margin-bottom: 5px;  border-bottom: 1px dashed #ccc;  }
+.all-suggestion-item.all-approved{ border-bottom-color: #69cc00; border-bottom-width: 2px; }
 .all-suggestion-item button{  text-transform: uppercase;  color: #fff;  padding: 5px 10px;  background-color: #69cc00;  border: none;  height: 23px;  cursor: pointer;  margin-bottom: 2px;  }
 .all-suggestion-item input{  border-radius: 3px;  width: calc(100% - 100px);  border: 1px solid #c3ced9;  outline: none;  padding-left: 5px;  padding-right: 5px;  }
 .all-suggestion-item.all-input-suggestion{  border-bottom: none;  }
@@ -24,7 +25,8 @@ body{  font-family: "Roboto","Helvetica",Helvetica,Arial,sans-serif;  }
 .all-item-wrapper .all-button-container{  text-align: right;  }
 .all-item-wrapper button{  cursor: pointer;  background: none;  border: none;  outline: none;  vertical-align: middle;  line-height: 28px;  position: relative;  padding-left: 26px;  }
 .all-item-wrapper button i{  display: inline-block;  width: 20px;  height: 20px;  border: 1px solid #c3ced9;  border-radius: 40px;  position: absolute;  left: 0;  top:3px;  background: url("../images/check_select.svg") no-repeat;  }
-
+.all-item-wrapper button:after{  content: "";  background: #90EE90;  display: block;  position: absolute;  height: 100%;  width: 100%;  top: 0;  opacity: 0;  transition: all 0.8s;  left: 0;  border-radius: 10px;  }
+.all-item-wrapper button:active:after{  width: 0;  opacity: 1;  transition: 0s  }
 /*=====================================loader======================================*/
 @keyframes opacity-60-25-0-12 {
     0% {

@@ -67,36 +67,41 @@ module.exports = {
   approve(req, res, next) {
     const {articleId, suggestion} = req.body;
     const showApproved = !!req.body.showApproved;
-    Article.findByIdAndUpdate({ _id: articleId }, {approved:true})
-      .then((article)=>{
-      if(suggestion._id){
-        Suggestion.findByIdAndUpdate({_id: suggestion._id}, {approved: true})
-          .then(() => {
-            Article.find({approved:showApproved})
-              .populate('suggestions')
-              .then((articles) => {
-                res.status(200).send({articles});
+    Article.findById({_id: articleId})
+      .then((article) => {
+        article.approved = true;
+        return article.save();
+      })
+      .then((article) => {
+        if (suggestion._id) {
+          Suggestion.findByIdAndUpdate({_id: suggestion._id}, {approved: true})
+            .then(() => {
+              Article.find({approved: showApproved})
+                .populate('suggestions')
+                .then((articles) => {
+                  res.status(200).send({articles});
 
-              })
-              .catch(next)
-          })
-          .catch(next);
-      }else{
-        const newSuggestion = new Suggestion({ suggestText: suggestion.suggestText, approved: true });
-        article.suggestions.push(newSuggestion);
+                })
+                .catch(next)
+            })
+            .catch(next);
+        } else {
+          const newSuggestion = new Suggestion({suggestText: suggestion.suggestText, approved: true});
+          article.suggestions.push(newSuggestion);
 
-        Promise.all([article.save(), newSuggestion.save()])
-          .then((args) => {
-            Article.find({approved:showApproved})
-              .populate('suggestions')
-              .then((articles) => {
-                res.status(200).send({articles});
+          article.save()
+            .then(() => newSuggestion.save())
+            .then(() => {
+              Article.find({approved: showApproved})
+                .populate('suggestions')
+                .then((articles) => {
+                  res.status(200).send({articles});
 
-              })
-              .catch(next)
-          })
-          .catch(next);
-      }
+                })
+                .catch(next)
+            })
+            .catch(next);
+        }
 
       })
       .catch(next);

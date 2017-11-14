@@ -9,7 +9,10 @@ import  UserSuggestionItem from './user_suggestion_item'
 
 class UserSuggestions extends Component {
   componentWillMount() {
-    this.props.fetchParagraphs();
+    const search = this.props.location.search;
+    const params = new URLSearchParams(search);
+    const articleURL = params.get('articleURL');
+    this.props.fetchParagraphs(articleURL);
   }
   sendChanges(suggestion){
     console.log(suggestion);

@@ -1,8 +1,75 @@
+
+
 p{margin: 0}
 body{
     font-family: "Roboto","Helvetica",Helvetica,Arial,sans-serif;
 }
+/*=====================================Result Items======================================*/
+.all-result-item-wrapper{
+    max-width: 600px;
+    margin: 5px auto;
+    border: 2px solid blue;
+    padding: 10px 80px 10px 10px;
+    position: relative;
+    box-sizing: border-box;
 
+}
+.all-result-item-title{
+    color: blue;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.all-btn-delete{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #d9165a;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.all-original-title{
+    margin-bottom: 4px;
+}
+.all-result-item-wrapper p{
+    font-size: 13px;
+
+}
+.all-result-item-original{
+    margin-bottom: 10px;
+}
+.all-suggestion-item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+.all-suggestion-item button{
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px 10px;
+    background-color: #69cc00;
+    border: none;
+    height: 23px;
+    cursor: pointer;
+    margin-bottom: 2px;
+
+}
+.all-suggestion-item input{
+    border-radius: 3px;
+    width: calc(100% - 100px);
+    border: 1px solid #c3ced9;
+    outline: none;
+}
+.all-suggestion-item.all-input-suggestion{
+    border-bottom: none;
+}
+
+/*=====================================Paragraphs======================================*/
 .all-item-wrapper{
     max-width: 600px;
     margin: 5px auto;

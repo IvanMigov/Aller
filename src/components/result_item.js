@@ -1,0 +1,61 @@
+import React, {Component} from 'react';
+import  ResultSuggestionItem from './result_suggestion_item';
+import * as actions from '../actions';
+import {connect} from 'react-redux';
+
+
+
+class ResultItem extends Component {
+  constructor() {
+    super();
+    this.state = {
+      suggestion: ''
+    }
+  }
+  getResultSuggestion(item, index){
+    return (
+      <ResultSuggestionItem
+        key= {item._id}
+        item = {item}
+        approveAction = {this.props.approveSuggestion}
+      />
+    )
+  }
+  approveSuggestion(){
+    this.props.approveSuggestion({suggestText:this.state.suggestion})
+  }
+  changeSuggestion(evt) {
+    this.setState({suggestion: evt.target.value});
+  }
+  render() {
+    const {originalText,suggestions} = this.props.item;
+    return (
+      <div className="all-result-item-wrapper">
+        <button className="all-btn all-btn-delete">Delete</button>
+        <span className="all-result-item-title all-original-title">
+            Original Text:
+        </span>
+        <p className="all-result-item-original">
+          {originalText}
+        </p>
+        <span className="all-result-item-title">
+            User Suggestions:
+        </span>
+        {suggestions.map(this.getResultSuggestion.bind(this))}
+        <div className="all-suggestion-item all-input-suggestion">
+
+          <input
+            value={this.state.suggestion}
+            onChange={this.changeSuggestion.bind(this)}
+          />
+          <button onClick={this.approveSuggestion.bind(this)}>
+            Approve
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+ResultItem = connect(null, actions)(ResultItem);
+
+export default ResultItem;

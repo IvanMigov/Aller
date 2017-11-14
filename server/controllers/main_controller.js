@@ -56,7 +56,7 @@ module.exports = {
   },
   index(req, res, next) {
     console.log('index');
-    const approved = req.headers.showapproved === 'true' ? true : false;
+    const approved = req.query.showApproved === 'true' ? true : false;
 
     Article.find({approved})
       .populate('suggestions')

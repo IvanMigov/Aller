@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
   FETCH_PARAGRAPHS,
-  DO_NOT_CHANGE_STATE
+  DO_NOT_CHANGE_STATE,
+  FETCH_ARTICLES
 } from './types';
 const requestUrl = 'http://localhost:3050/api';
 
@@ -14,9 +15,27 @@ export function fetchParagraphs(uri) {
     payload: request
   };
 }
+export function fetchArticles(showApproved) {
+  console.log('showApproved',showApproved);
+  const request = axios.get(`${requestUrl}/articles`, { params:{showApproved}});
+
+  return {
+    type: FETCH_ARTICLES,
+    payload: request
+  };
+}
 export function saveSuggestion(suggestion) {
   console.log(suggestion);
   const request = axios.put(`${requestUrl}/suggestion`,suggestion);
+
+  return {
+    type: DO_NOT_CHANGE_STATE,
+    payload: null
+  };
+}
+export function approveSuggestion(suggestion) {
+  console.log(suggestion);
+  // const request = axios.put(`${requestUrl}/suggestion`,suggestion);
 
   return {
     type: DO_NOT_CHANGE_STATE,

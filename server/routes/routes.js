@@ -5,4 +5,5 @@ module.exports = (app) => {
   app.put('/api/suggestion', Controller.create);
   app.get('/api/articles', Controller.index);
   app.patch('/api/approve', Controller.approve);
+  app.delete('/api/article', Controller.remove);
 };

@@ -31,11 +31,19 @@ class ResultItem extends Component {
   changeSuggestion(evt) {
     this.setState({suggestion: evt.target.value});
   }
+  removeArticle() {
+    const showApproved = this.props.showApproved;
+    const articleId = this.props.item._id;
+    this.props.removeArticle({showApproved,articleId})
+  }
   render() {
     const {originalText,suggestions} = this.props.item;
     return (
       <div className="all-result-item-wrapper">
-        <button className="all-btn all-btn-delete">Delete</button>
+        <button
+          onClick={this.removeArticle.bind(this)}
+          className="all-btn all-btn-delete"
+        >Delete</button>
         <span className="all-result-item-title all-original-title">
             Original Text:
         </span>

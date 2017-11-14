@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const SuggestionSchema = require('./suggestion');
+const Suggestion = require('../models/suggestion');
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
@@ -21,14 +21,11 @@ const ArticleSchema = new Schema({
   }]
 });
 
-// ArticleSchema.pre('remove', function(next) {
-//   const UserSuggestion = mongoose.model('userSuggestion');
-//   // this === joe
-//
-//   UserSuggestion.remove({ _id: { $in: this.userSuggestion } })
-//     .then(() => next());
-// });
-
+ArticleSchema.pre('remove', function(next) {
+  console.log('preremove');
+  Suggestion.remove({ _id: { $in: this.suggestions } })
+    .then(() => next());
+});
 const Article = mongoose.model('article', ArticleSchema);
 
 module.exports = Article;

@@ -106,5 +106,25 @@ module.exports = {
       .catch(next);
 
 
-  }
+  },
+  remove(req, res, next) {
+    console.log('remove');
+    const {articleId} = req.query;
+    const showApproved = !!req.query.showApproved;
+
+    Article.findById({ _id: articleId })
+      .then((article) => article.remove())
+      .then(() => {
+        Article.find({approved:showApproved})
+          .populate('suggestions')
+          .then((articles) => {
+            res.status(200).send({articles});
+
+          })
+          .catch(next)
+      })
+      .catch(next);
+
+  },
+
 };

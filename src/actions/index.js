@@ -46,3 +46,12 @@ export function approveSuggestion(suggestion) {
     payload: request
   };
 }
+export function removeArticle(params) {
+  console.log('articleId',params);
+  const request = axios.delete(`${requestUrl}/article`,{params});
+
+  return {
+    type: FETCH_ARTICLES,
+    payload: request
+  };
+}

@@ -14,7 +14,6 @@ class Results extends Component {
     this.state = {showApproved: false}
   }
   componentWillMount() {
-    console.log('componentWillMount');
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     showApproved = params.get('showApproved');

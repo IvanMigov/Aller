@@ -1,5 +1,3 @@
-console.log('index.js is running');
-
 const app = require('./app');
 
 app.listen(3050, () => {

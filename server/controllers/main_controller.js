@@ -6,7 +6,6 @@ const request = require("request");
 module.exports = {
 
   parse(req, res, next) {
-    console.log('parse body');
     const articleProps = req.body;
     request({uri:articleProps.uri }, function(error, response, body) {
       if(!error){
@@ -26,7 +25,6 @@ module.exports = {
 
   },
   create(req, res, next) {
-    console.log('create');
     const articleProps = req.body;
     const suggestion = new Suggestion({ suggestText: articleProps.suggestText, approved: false });
 
@@ -55,7 +53,6 @@ module.exports = {
 
   },
   index(req, res, next) {
-    console.log('index');
     const approved = req.query.showApproved === 'true' ? true : false;
 
     Article.find({approved})
@@ -68,7 +65,6 @@ module.exports = {
 
   },
   approve(req, res, next) {
-    console.log('approve');
     const {articleId, suggestion} = req.body;
     const showApproved = !!req.body.showApproved;
     Article.findByIdAndUpdate({ _id: articleId }, {approved:true})
@@ -108,7 +104,6 @@ module.exports = {
 
   },
   remove(req, res, next) {
-    console.log('remove');
     const {articleId} = req.query;
     const showApproved = !!req.query.showApproved;
 

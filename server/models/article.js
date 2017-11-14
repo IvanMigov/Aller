@@ -22,7 +22,6 @@ const ArticleSchema = new Schema({
 });
 
 ArticleSchema.pre('remove', function(next) {
-  console.log('preremove');
   Suggestion.remove({ _id: { $in: this.suggestions } })
     .then(() => next());
 });

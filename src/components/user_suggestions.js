@@ -3,19 +3,25 @@ import {connect} from 'react-redux';
 import { Component } from 'react';
 import * as actions from '../actions';
 import Loader from './loader';
-import  UserSuggestionItem from './user_suggestion_item'
-
+import  UserSuggestionItem from './user_suggestion_item';
+let articleURL = '';
 
 
 class UserSuggestions extends Component {
   componentWillMount() {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
-    const articleURL = params.get('articleURL');
+    articleURL = params.get('articleURL');
     this.props.fetchParagraphs(articleURL);
   }
-  sendChanges(suggestion){
-    console.log(suggestion);
+  sendChanges(originalText,suggestText){
+    if(suggestText){
+      this.props.saveSuggestion({
+        uri: articleURL,
+        originalText,
+        suggestText
+      });
+    }
   }
   getItem(item, index){
     return (

@@ -9,15 +9,19 @@ module.exports = {
     console.log('parse body');
     const articleProps = req.body;
     request({uri:articleProps.uri }, function(error, response, body) {
-      const $ = cheerio.load(body);
-      const title = $("title").text();
-      let paragraphs = [];
+      if(!error){
+        const $ = cheerio.load(body);
+        const title = $("title").text();
+        let paragraphs = [];
 
-      $("p").each(function() {
-        let text = $(this).text();
-        paragraphs.push(text);
-      });
-      res.send({title,paragraphs});
+        $("p").each(function() {
+          let text = $(this).text();
+          paragraphs.push(text);
+        });
+        res.send({title,paragraphs});
+      } else {
+        next(error);
+      }
     });
 
   },
@@ -31,11 +35,21 @@ module.exports = {
         if (!article) {
           article = new Article({ url: articleProps.uri,originalText: articleProps.originalText});
         }
-        article.suggestions.push(suggestion);
 
-        Promise.all([article.save(), suggestion.save()])
-          .then((args) => res.status(201).send({article:args[0]}))
+        Suggestion.find({suggestText: articleProps.suggestText, _id: {$in: article.suggestions}})
+          .then((suggestions) => {
+            if(!suggestions.length){
+              article.suggestions.push(suggestion);
+
+              Promise.all([article.save(), suggestion.save()])
+                .then((args) => res.status(201).send({article:args[0]}))
+                .catch(next);
+            }else{
+              res.status(302).send({article:article});
+            }
+          })
           .catch(next);
+
       })
       .catch(next)
 

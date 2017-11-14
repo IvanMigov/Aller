@@ -12,7 +12,7 @@ class UserSuggestionItem extends Component {
     this.setState({suggestion: evt.target.value.trim()});
   }
   sendChangesToParent(){
-    this.props.sendChanges(this.state.suggestion)
+    this.props.sendChanges(this.props.text,this.state.suggestion)
   }
   render() {
     const {text} = this.props;
